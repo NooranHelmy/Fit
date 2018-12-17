@@ -22,15 +22,13 @@ void RendertoTextureScene::Initialize()
 	shader->attach("../assets/shaders/texture.frag", GL_FRAGMENT_SHADER);
 	shader->link();
 
+	spaceClicked = false;
+	goUp = false;
+
 	mLoc = glGetUniformLocation(shader->getID(), "M");
 	mitLoc = glGetUniformLocation(shader->getID(), "M_it");
 	vpLoc = glGetUniformLocation(shader->getID(), "VP");
 	camPosLoc = glGetUniformLocation(shader->getID(), "cam_pos");
-
-	materialVars.diffuse = glGetUniformLocation(shader->getID(), "material.diffuse");
-	materialVars.specular = glGetUniformLocation(shader->getID(), "material.specular");
-	materialVars.ambient = glGetUniformLocation(shader->getID(), "material.ambient");
-	materialVars.shininess = glGetUniformLocation(shader->getID(), "material.shininess");
 
 	lightVars.diffuse = glGetUniformLocation(shader->getID(), "light.diffuse");
 	lightVars.specular = glGetUniformLocation(shader->getID(), "light.specular");
@@ -52,10 +50,7 @@ void RendertoTextureScene::Initialize()
 	distToTop = 4;
 	topPosition = {5.0f,distToTop,0.0f};
 
-	plane = MeshUtils::Plane({ 0,0 }, { 10,10 });
 	modelFiles = getAllFilesinDir("../assets/models/");
-
-	
 
 	for (int i = 0; i < noOfShapes; i++)
 	{
@@ -83,25 +78,15 @@ void RendertoTextureScene::Initialize()
 	camera->setUp({ 0, 1, 0 });
 	camera->setPosition({ 1.33088f,6.0f, 0.0f});
 	camera->setTarget({ 5.0f, 2.0f, 0.0f });
-	
-	//{ 5.0f, 0.1f, 0.0f }
-	controller = new FlyCameraController(this, camera);
-	//controller->setYaw(0);
-	//controller->setPitch(-0.475089);
-	//controller->setPosition({ 0, 5, 0 });
-
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
-	glFrontFace(GL_CCW);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	glEnable(GL_TEXTURE_2D);
 
 	glEnable(GL_BLEND);
 	glBlendEquation(GL_FUNC_ADD);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glEnable(GL_TEXTURE_2D);
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 }
 
@@ -112,20 +97,15 @@ void RendertoTextureScene::Update(double delta_time)
 	  
 	if (kb->isPressed(GLFW_KEY_SPACE)) 
 	{
+		spaceClicked = true;
 		//function Nourhan ely bt2ol 7asal collision wala la2 - TODO
-		if (true) //collision has occured
+		if (false) //collision has occured
 		{
-			while (topPosition.y >= 2)
-			{
-				topPosition.y -= (float)delta_time;
-			}
-			while (topPosition.y <= distToTop)
-			{
-				topPosition.y += (float)delta_time;
-			}
+			isHit = true;
 		}
 		else
 		{
+			isHit = false;
 			//add ely fo2 ma3 ely ba3do 
 			//hanrsm ely msh ma5room fo2 PLUS mets8r
 			//stack.pop();
@@ -164,11 +144,6 @@ void RendertoTextureScene::Draw()
 	glUniform3f(lightVars.ambient, 0.88f, 0.68f, 0.15f);
 	glUniform3f(lightVars.direction, light_dir.x, light_dir.y, light_dir.z);
 
-	glUniform3f(materialVars.diffuse, 0.7f, 0.2f, 0.1f);
-	glUniform3f(materialVars.specular, 0.2f, 0.2f, 0.2f);
-	glUniform3f(materialVars.ambient, 0.7f, 0.2f, 0.1f);
-	glUniform1f(materialVars.shininess, 50);
-
 	for (int i = 0; i < stackSize; i++)
 	{
 		glActiveTexture(GL_TEXTURE0);
@@ -206,21 +181,47 @@ void RendertoTextureScene::Draw()
 		glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(model_mat));
 		glUniformMatrix4fv(mitLoc, 1, GL_FALSE, glm::value_ptr(model_mat_it));
 		float specular = i / 10.0f;
-		glUniform3f(materialVars.specular, specular, specular, specular);
-		glUniform1f(materialVars.shininess, i * 5.0f + 1.0f);
 		stack[i]->draw();
 		
 		upwardsValue += 1; //0.5
 
 	}
+	if (spaceClicked)
+	{
+		if (isHit)
+		{
+			if (topPosition.y >= 3.1) 
+				topPosition.y -= 0.01;
+			else
+			{
+				spaceClicked = false;
+				isHit = false;
+				//pop and complete the model
+			}
+		}
+		else
+		{
+			if (topPosition.y >= 3.4)
+			{
+				topPosition.y -= 0.01;
+				std::cout<<topPosition.y<<std::endl;
+			}
+			else
+			{
+				spaceClicked = false;
+				goUp = true;
+			}
+		}
+	}
+	if (goUp && topPosition.y < distToTop)
+		topPosition.y += 0.01;
+	else 
+		goUp = false;
 }
 
 void RendertoTextureScene::Finalize()
 {
-	delete controller;
 	delete camera;
-
-	delete plane;
 	delete shader;
 }	
 

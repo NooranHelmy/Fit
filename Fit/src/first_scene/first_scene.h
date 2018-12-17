@@ -25,17 +25,16 @@ private:
 	Texture2D* textures[24];
 	int distToTop;
 	glm::vec3 topPosition;
+	bool spaceClicked; //True if space is clicked
+	bool isHit;	      // True if the player win (ha7tgha 3shan a3rf hanzel l model w atl3o tany wla howa kaseb fa ashela)
+	bool goUp;        // True if the model went down (it will tell me when to go up)
 
 	Camera* camera;
-	FlyCameraController* controller;
 	GLuint mvpLoc, texLoc;
 	std::vector <std::string> modelFiles;
 
 	float lightYaw, lightPitch;
 	GLuint mLoc, mitLoc, vpLoc, camPosLoc;
-	struct {
-		GLuint diffuse, specular, ambient, shininess;
-	} materialVars;
 	struct {
 		GLuint diffuse, specular, ambient, direction;
 	} lightVars;

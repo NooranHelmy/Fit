@@ -32,9 +32,6 @@ public:
         if(this->mouse->isPressed(GLFW_MOUSE_BUTTON_1)) this->mouse->lockMouse();
         yawSenstivity = pitchSenstivity = 0.01f;
         positionSenstivity = {3.0f, 3.0f, 3.0f};
-		position = { 1.33088f,10.58349f, 0.0506875f };
-		yaw = 0.0131824;
-		pitch = -0.475089;
 			
     }
 
