@@ -108,10 +108,8 @@ void RendertoTextureScene::Initialize()
 void RendertoTextureScene::Update(double delta_time)
 {
 	//controller->update(delta_time);
-
-
 	Keyboard* kb = getKeyboard();
-	
+	  
 	if (kb->isPressed(GLFW_KEY_SPACE)) 
 	{
 		//function Nourhan ely bt2ol 7asal collision wala la2 - TODO
