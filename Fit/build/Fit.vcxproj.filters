@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\src\first_scene\first_scene.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\src\main.cpp">
+      <Filter>sources</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\mesh\mesh_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\textures\texture_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\vendor\glad\src\glad.c">
+      <Filter>vendors</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\src\first_scene\first_scene.h">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\application.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\camera\camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\camera\controllers\fly_camera_controller.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\camera\controllers\orbit_camera_controller.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\framebuffer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\input\keyboard.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\input\mouse.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\mesh\mesh.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\mesh\mesh_utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\mesh\vertex.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\mesh\vertex_attribute_pointer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\scene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\shader.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\textures\texture2d.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\textures\texture_cube.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\common\textures\texture_utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\CUFE\Senior-2\Graphics\Labs\Fit\Fit\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{04344139-FE28-32E8-955E-636A682E34EE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{88A58B13-E2D0-3002-8791-6CEA47D62B20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="headers">
+      <UniqueIdentifier>{D82D2007-9590-36D9-9B7A-5ED04FA173A8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sources">
+      <UniqueIdentifier>{7F985A49-1EB6-3B1B-A4E2-B311EF870332}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendors">
+      <UniqueIdentifier>{9BB5B1AA-2445-3078-960C-29BBF82385D2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
