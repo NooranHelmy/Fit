@@ -4,7 +4,7 @@
 
 int main()
 {
-    Application* app = new Application("Frame Buffers", 640, 480, false);
+    Application* app = new Application("Frame Buffers", 1024, 600, false);
     Scene* scene = new RendertoTextureScene(app);
 
 	app->setScene(scene);

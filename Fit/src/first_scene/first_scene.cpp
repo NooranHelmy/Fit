@@ -83,12 +83,10 @@ void RendertoTextureScene::Initialize()
 	camera->setUp({ 0, 1, 0 });
 
 	controller = new FlyCameraController(this, camera);
-	controller->setYaw(0);
-	controller->setPitch(0);
-	controller->setPosition({ 0, 2.5, 0 });
-
-	lightYaw = lightPitch = glm::quarter_pi<float>();
-
+	controller->setYaw(-glm::half_pi<float>());
+	controller->setPitch(-glm::quarter_pi<float>());
+	controller->setPosition({ 20, 10, 50 });
+	   		
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
@@ -145,16 +143,8 @@ void RendertoTextureScene::Draw()
 	
 	glm::mat4 VP = camera->getVPMatrix();
 
-	// To prevent the motion of camera for the frame picture
-	if (!frameVPInitialized)
-	{
-		frameVPMatrix = camera->getVPMatrix();
-		frameVPInitialized = true;
-	}
-
 	glm::vec3 cam_pos = camera->getPosition();
 	glm::vec3 light_dir = -(glm::vec3(glm::cos(lightYaw), 0, glm::sin(lightYaw)) * glm::cos(lightPitch) + glm::vec3(0, glm::sin(lightPitch), 0));
-
 
 	shader->use();
 	float scaleFactor = 4.0;
@@ -172,10 +162,6 @@ void RendertoTextureScene::Draw()
 	glUniform3f(lightVars.ambient, 0.88f, 0.68f, 0.15f);
 	glUniform3f(lightVars.direction, light_dir.x, light_dir.y, light_dir.z);
 
-	glm::mat4 ground_mat = glm::scale(glm::mat4(), glm::vec3(100, 1, 100));
-	glm::mat4 ground_mat_it = glm::transpose(glm::inverse(ground_mat));
-	glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(ground_mat));
-	glUniformMatrix4fv(mitLoc, 1, GL_FALSE, glm::value_ptr(ground_mat_it));
 	glUniform3f(materialVars.diffuse, 0.7f, 0.2f, 0.1f);
 	glUniform3f(materialVars.specular, 0.2f, 0.2f, 0.2f);
 	glUniform3f(materialVars.ambient, 0.7f, 0.2f, 0.1f);
@@ -214,7 +200,7 @@ void RendertoTextureScene::Draw()
 
 		glm::mat4 model_mat = trans;
 		glm::mat4 model_mat_it = glm::transpose(glm::inverse(model_mat));
-		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(frameVPMatrix * trans));
+		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(VP * trans));
 		glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(model_mat));
 		glUniformMatrix4fv(mitLoc, 1, GL_FALSE, glm::value_ptr(model_mat_it));
 		float specular = i / 10.0f;
@@ -225,12 +211,6 @@ void RendertoTextureScene::Draw()
 		upwardsValue += 1; //0.5
 
 	}
-
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Clear colors and depth
-
-	//VP = camera->getVPMatrix();
-
-
 }
 
 void RendertoTextureScene::Finalize()
