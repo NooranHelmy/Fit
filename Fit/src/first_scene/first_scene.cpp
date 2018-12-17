@@ -81,12 +81,15 @@ void RendertoTextureScene::Initialize()
 	glm::ivec2 windowSize = getApplication()->getWindowSize();
 	camera->setupPerspective(glm::pi<float>() / 2, (float)windowSize.x / windowSize.y, 0.1f, 1000.0f);
 	camera->setUp({ 0, 1, 0 });
-
+	camera->setPosition({ 1.33088f,6.0f, 0.0f});
+	camera->setTarget({ 5.0f, 2.0f, 0.0f });
+	
+	//{ 5.0f, 0.1f, 0.0f }
 	controller = new FlyCameraController(this, camera);
-	controller->setYaw(-glm::half_pi<float>());
-	controller->setPitch(-glm::quarter_pi<float>());
-	controller->setPosition({ 20, 10, 50 });
-	   		
+	//controller->setYaw(0);
+	//controller->setPitch(-0.475089);
+	//controller->setPosition({ 0, 5, 0 });
+
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
@@ -104,7 +107,8 @@ void RendertoTextureScene::Initialize()
 
 void RendertoTextureScene::Update(double delta_time)
 {
-	controller->update(delta_time);
+	//controller->update(delta_time);
+
 
 	Keyboard* kb = getKeyboard();
 	

@@ -32,6 +32,10 @@ public:
         if(this->mouse->isPressed(GLFW_MOUSE_BUTTON_1)) this->mouse->lockMouse();
         yawSenstivity = pitchSenstivity = 0.01f;
         positionSenstivity = {3.0f, 3.0f, 3.0f};
+		position = { 1.33088f,10.58349f, 0.0506875f };
+		yaw = 0.0131824;
+		pitch = -0.475089;
+			
     }
 
     ~FlyCameraController(){
@@ -42,14 +46,29 @@ public:
         if(mouse->justPressed(GLFW_MOUSE_BUTTON_1)){
             mouse->lockMouse();
         } else if(mouse->justReleased(GLFW_MOUSE_BUTTON_1)){
+
+			std::cout << camera->getPosition().x << std::endl;
+			std::cout << camera->getPosition().y << std::endl;
+			std::cout << camera->getPosition().z << std::endl;
+			std::cout << getYaw() << std::endl;
+			std::cout << getPitch() << std::endl;
+			std::cout << std::endl;
             mouse->unlockMouse();
+
         }
 
         if(mouse->isPressed(GLFW_MOUSE_BUTTON_1)){
             glm::vec2 delta = mouse->getMouseDelta();
             pitch -= delta.y * pitchSenstivity;
             yaw += delta.x * yawSenstivity;
-        }
+			
+/*			std::cout << camera->getPosition().x << std::endl;
+			std::cout << camera->getPosition().y << std::endl;
+			std::cout << camera->getPosition().z << std::endl;
+			std::cout << getYaw() << std::endl;
+			std::cout << getPitch() << std::endl;
+			std::cout << std::endl*/;
+		}
         
         if(pitch < -glm::half_pi<float>() * 0.99f) pitch = -glm::half_pi<float>() * 0.99f;
         if(pitch >  glm::half_pi<float>() * 0.99f) pitch  = glm::half_pi<float>() * 0.99f;
@@ -66,6 +85,14 @@ public:
 
         camera->setDirection(glm::vec3(glm::cos(yaw), 0, glm::sin(yaw)) * glm::cos(pitch) + glm::vec3(0, glm::sin(pitch), 0));
         camera->setPosition(position);
+		//std::cout << "position x:" << position.x << std::endl;
+		//std::cout << "position y:" << position.y << std::endl;
+		//std::cout << "position z:" << position.z << std::endl;
+		//1.59795		
+		//	5.41615
+		//	- 0.14136
+		//	0.0900028
+		//	- 0.49
     }
 
     float getYaw(){return yaw;}
