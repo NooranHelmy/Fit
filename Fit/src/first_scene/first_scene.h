@@ -12,12 +12,19 @@
 #include <camera/camera.hpp>
 #include <camera/controllers/fly_camera_controller.hpp>
 #include <stack> 
-
+#include "../build/include/irrKlang.h"
+#pragma comment(lib, "irrKlang.lib")
 
 class RendertoTextureScene : public Scene {
 private:
-	Shader * shader;
+	Shader * shader, *grayScaleShader;
 	Mesh* plane;
+	/* TEST */
+	FrameBuffer* fbo;
+	Texture2D *fboTex, *fboDepthTex;
+	bool useGrayScale;
+	Mesh *quad;
+	/*  */
 
 	Mesh* shapes[66];
 	int modelIDs[8][8];
@@ -27,6 +34,7 @@ private:
 	int stackSize;
 	int posOfStack;
 	Texture2D* textures[24];
+	Texture2D* backgroundTex;
 	int distToTop;
 	glm::vec3 topPosition;
 	bool spaceClicked; //True if space is clicked
@@ -36,17 +44,24 @@ private:
 	int oldBotID;
 	float botY;
 	int count;
+	bool isFirst;
 	double shrinkScale;
 	float rotationValueBot;
 	float rotationValueTop;
+	float currentTime;
+	Mesh* background;
 
 	Camera* camera;
 	FlyCameraController* controller;
 	GLuint mvpLoc, texLoc;
 	std::vector <std::string> modelFiles;
+	irrklang::ISoundEngine* soundEngine;
 
 	float lightYaw, lightPitch;
 	GLuint mLoc, mitLoc, vpLoc, camPosLoc;
+	struct {
+		GLuint diffuse, specular, ambient, shininess;
+	} materialVars;
 	struct {
 		GLuint diffuse, specular, ambient, direction;
 	} lightVars;

@@ -2,16 +2,33 @@
 
 layout(location = 0) in vec3 position;
 layout(location = 2) in vec2 uv;
-layout(location = 4) in vec3 cF;
+layout(location = 3) in vec3 normal;//
 
 uniform mat4 MVP;
 
+uniform mat4 M;
+uniform mat4 M_it;
+
+uniform mat4 VP;
+uniform vec3 cam_pos;
+
+
 out vec2 vUV;
-out vec3 colorFactors;
+out vec4 myPos;
+out Interpolators {
+    vec3 view;
+    vec3 normal;
+} vs_out;
 
 void main()
 {
     vUV = uv;
-	colorFactors=cF;
+	
     gl_Position = MVP * vec4(position, 1.0f);
+	myPos=gl_Position;
+	//////////////////////////////////////////////TEST
+	vec4 world = M * vec4(position, 1.0f);
+    vs_out.view = cam_pos - world.xyz;
+    vs_out.normal = normalize(M_it * vec4(normal, 0.0f)).xyz;
+    gl_Position = VP * world;
 }
