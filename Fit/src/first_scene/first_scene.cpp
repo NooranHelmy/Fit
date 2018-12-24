@@ -56,7 +56,7 @@ void RendertoTextureScene::Initialize()
 	texLoc = glGetUniformLocation(shader->getID(), "tex");
 
 	textures[0] = TextureUtils::Load2DTextureFromFile("../assets/textures/blue.png");
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -77,7 +77,7 @@ void RendertoTextureScene::Initialize()
 	count = 0;
 	shrinkScale = 0.3f;
 
-	
+
 
 	modelFiles = getAllFilesinDir("../assets/models/");
 
@@ -178,7 +178,9 @@ void RendertoTextureScene::Initialize()
 
 	// Create our render target
 	fboTex = new Texture2D();
+
 	fboTex->bind();
+
 	fboTex->setup(GL_RGB, width, height, GL_RGB, GL_UNSIGNED_BYTE, nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -194,6 +196,9 @@ void RendertoTextureScene::Initialize()
 
 	useGrayScale = true;
 
+	grayScaleShader->set("factors1", { 0.393,0.769,0.189 });
+	grayScaleShader->set("factors2", { 0.349,0.686,0.168 });
+	grayScaleShader->set("factors3", { 0.272,0.534,0.131 });
 	// Create quad to render fboTex on
 	quad = new Mesh();
 	quad->setup<Vertex>({
@@ -255,6 +260,10 @@ void RendertoTextureScene::Update(double delta_time)
 	if (lightPitch < -glm::half_pi<float>()) lightPitch = -glm::half_pi<float>();
 	if (lightPitch > glm::half_pi<float>()) lightPitch = glm::half_pi<float>();
 	lightYaw = glm::wrapAngle(lightYaw);
+
+	grayScaleShader->set("factors1", { 0.393,0.769,0.189 });
+	grayScaleShader->set("factors2", { 0.349,0.686,0.168 });
+	grayScaleShader->set("factors3", { 0.272,0.534,0.131 });
 }
 
 void RendertoTextureScene::Draw()
@@ -425,7 +434,6 @@ void RendertoTextureScene::Draw()
 		quad->draw();
 		if (isFirst) {
 			useGrayScale = false;
-			isFirst = false;
 			isFirst = false;
 		}
 	}
